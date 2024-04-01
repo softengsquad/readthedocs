@@ -21,4 +21,4 @@ Contents
    usage
    api
    requirements
-   libraries part 1
+   librariesPart1
