@@ -1,1 +1,155 @@
+Day Library
+============
+Day Class:
+------------
+holds information about the sessions that are occuring this day
+- stores the date in a _DateTime_ Format
+- stores a _List_ of sessions (in _session_ format)
+
+constructors
+------------
+Day(DateTime date,
+    List<Session>sessions
+)
+https://api.flutter.dev/flutter/dart-core/DateTime-class.html
+https://api.flutter.dev/flutter/dart-core/List-class.html
+https://softengsquad.github.io/studentmap/domain_layer_calandar_manager_session/Session-class.html
+
+
+Properties
+----------
+date <--> DateTime
+(getter/setter pair)
+https://softengsquad.github.io/studentmap/domain_layer_calandar_manager_day/Day/date.html
+https://api.flutter.dev/flutter/dart-core/DateTime-class.html
+
+hashCode -> int
+the hash code for this object
+(no setter) (inherited)
+https://api.flutter.dev/flutter/dart-core/Object/hashCode.html
+https://api.flutter.dev/flutter/dart-core/int-class.html
+
+runtimeType -> Type
+(no setter) (inherited)
+a representation of the runtime type of the object
+https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html
+https://api.flutter.dev/flutter/dart-core/Type-class.html
+
+sessions <--> List<Session>
+(getter/setter pair)
+https://softengsquad.github.io/studentmap/domain_layer_calandar_manager_day/Day/sessions.html
+https://api.flutter.dev/flutter/dart-core/List-class.html
+https://softengsquad.github.io/studentmap/domain_layer_calandar_manager_session/Session-class.html
+
+weekDay <--> String
+(getter/setter pair)
+https://softengsquad.github.io/studentmap/domain_layer_calandar_manager_day/Day/weekDay.html
+https://api.flutter.dev/flutter/dart-core/String-class.html
+
+
+Methods
+-------
+getSchedule() -> List<String>
+Returns a List Of session Strings
+https://softengsquad.github.io/studentmap/domain_layer_calandar_manager_day/Day/getSchedule.html
+https://api.flutter.dev/flutter/dart-core/List-class.html
+https://api.flutter.dev/flutter/dart-core/String-class.html
+
+noSuchMethod(Invocation invocation) -> dynamic
+(inherited)
+Invoked when a nonexistent method or property is accessed.
+https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html
+https://api.flutter.dev/flutter/dart-core/Invocation-class.html
+
+toString() -> String
+(inherited)
+A string representation of this object.
+[toString()](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+
+
+Operators
+---------
+operator ==(Object other) -> bool
+(inherited)
+The equality operator.
+[operator==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)
+[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+
+
+
+
+
+
+
+
+
+google_oauth_api library
+========================
+
+constants
+---------
+clientId -> const String
+The OAuth 2.0 Client ID given by Google Cloud.
+"354034818654-ngj5kfhaq8n4j4ou3ok265t0q37c4a8h.apps.googleusercontent.com"
+https://softengsquad.github.io/studentmap/data_layer_google_oauth_api/clientId-constant.html
+https://api.flutter.dev/flutter/dart-core/String-class.html
+
+scopes -> const List<String>
+The list of scopes that will be granted to the application once the user authenticates with Google. This must align with the scopes defined in the OAuth settings in the Google Cloud API Console.
+<String>["email", "https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/calendar.events.owned.readonly&qu…
+
+https://softengsquad.github.io/studentmap/data_layer_google_oauth_api/scopes-constant.html
+https://api.flutter.dev/flutter/dart-core/List-class.html
+https://api.flutter.dev/flutter/dart-core/String-class.html
+
+
+
+
+
+main
+====
+classes
+-------
+myApp
+-----
+MyApp({Key? key})
+const
+https://softengsquad.github.io/studentmap/main/MyApp/MyApp.html
+https://api.flutter.dev/flutter/foundation/Key-class.html
+
+properties
+----------
+hashCode -> int
+(no setter) (inherited)
+The hash code for this object.
+https://api.flutter.dev/flutter/dart-core/Object/hashCode.html
+https://api.flutter.dev/flutter/dart-core/int-class.html
+
+key -> Key?
+(final) (inherited)
+Controls how one widget replaces another widget in the tree.
+https://api.flutter.dev/flutter/widgets/Widget/key.html
+https://api.flutter.dev/flutter/foundation/Key-class.html
+
+runtimeType -> Type
+(no setter) (inherited)
+A representation of the runtime type of the object
+https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html
+https://api.flutter.dev/flutter/dart-core/Type-class.html
+
+methods
+-------
+
+
+
+
+
+MyHomePage
+----------
+
+functions
+---------
+main() -> void
 
