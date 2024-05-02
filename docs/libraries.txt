@@ -1,116 +1,802 @@
-Day Library
-============
-Day Class:
-------------
-holds information about the sessions that are occuring this day
-- stores the date in a _DateTime_ Format
-- stores a _List_ of sessions (in _session_ format)
+Database
+===========
 
-constructors
-------------
-Day(DateTime date,
-    List<Session>sessions
-)
+Classes
+-------
 
-Properties
-----------
-date <--> DateTime
-(getter/setter pair)
+Database
+--------
+Describes a local database used to store various information pertaining to buildings, bus routes, favorites, etc.
 
-hashCode -> int
-the hash code for this object
-(no setter) (inherited)
-
-runtimeType -> Type
-(no setter) (inherited)
-a representation of the runtime type of the object
-
-
-sessions <--> List<Session>
-(getter/setter pair)
-
-weekDay <--> String
-(getter/setter pair)
+Constructors
+~~~~~~~~~~~~
+Database(sqflite.Database _internalDb)
+    Constructs a Database instance with an internal SQLite database.
 
 Methods
--------
-getSchedule() -> List<String>
-Returns a List Of session Strings
+~~~~~~~
+open()
+    Opens a connection to the local database.
+    :return: A Database instance.
+    :rtype: Database
 
-noSuchMethod(Invocation invocation) -> dynamic
-(inherited)
-Invoked when a nonexistent method or property is accessed.
+_getDatabaseName()
+    Returns the local file name of the database.
+    :return: The local file name of the database.
+    :rtype: str
 
-toString() -> String
-(inherited)
-A string representation of this object.
+_init()
+    Initializes the database by executing the schema SQL and populating the database with initial data.
 
-Operators
+_getSchemaSql()
+    Returns the SQL code used to construct the tables within the database.
+    :return: The SQL code for constructing the tables.
+    :rtype: str
+
+_getPopulateSql()
+    Returns the SQL code used to populate the database with initial data.
+    :return: The SQL code for populating the database.
+    :rtype: str
+
+getTableCount()
+    Returns the number of user tables in the database. Does not include internal/system tables.
+    :return: The number of user tables in the database.
+    :rtype: int
+
+isDatabaseEmpty()
+    Returns true if the database contains 0 user tables.
+    :return: True if the database is empty, False otherwise.
+    :rtype: bool
+
+getAllBuildings()
+    Retrieves all buildings from the database and converts them into instances of the Building class.
+    :return: A list of Building instances.
+    :rtype: List[Building]
+
+
+
+
+
+google oauth API
+================
+
+Constants
 ---------
-operator ==(Object other) -> bool
-(inherited)
-The equality operator.
 
-
-
-
-
-
-
-
-
-google_oauth_api library
-========================
-
-constants
----------
-clientId -> const String
+clientId
+~~~~~~~
 The OAuth 2.0 Client ID given by Google Cloud.
-"354034818654-ngj5kfhaq8n4j4ou3ok265t0q37c4a8h.apps.googleusercontent.com"
+:type: str
+:value: "354034818654-ngj5kfhaq8n4j4ou3ok265t0q37c4a8h.apps.googleusercontent.com"
 
-scopes -> const List<String>
+scopes
+~~~~~~
 The list of scopes that will be granted to the application once the user authenticates with Google. This must align with the scopes defined in the OAuth settings in the Google Cloud API Console.
-<String>["email", "https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/calendar.events.owned.readonly&qu…
+:type: List[str]
+:value:
+    - "email"
+    - "https://www.googleapis.com/auth/calendar.readonly"
+    - "https://www.googleapis.com/auth/calendar.events.owned.readonly"
 
 
 
 
 
+Building Manager Module
+=======================
 
-main
+Classes
+-------
+
+Building
+--------
+Represents a building entity.
+
+Constructors
+~~~~~~~~~~~~
+Building
+    required int id,
+    required String name,
+    required String addressLine1,
+    String addressLine2 = "",
+    required String postcode,
+    required String type,
+    required bool favourited,
+    required double longitude,
+    required double latitude,
+
+
+
+
+
+Building Manager
+================
+
+Classes
+-------
+
+BuildingManager
+---------------
+This object allows the main application to interface with the rest of the objects in the 'Building Manager' subsystem.
+
+Constructors
+~~~~~~~~~~~~
+BuildingManager(List<Building> buildings)
+    Constructs a BuildingManager instance with a list of buildings.
+
+Methods
+~~~~~~~
+getMatchingBuildingsByName(String? input)
+    Returns buildings that contain a search term defined in **input**.
+    :param str? input: The search term.
+    :return: A list of buildings matching the search term.
+    :rtype: List[Building]
+
+
+
+
+Building Module
+===============
+
+Classes
+-------
+
+Building
+--------
+Holds information about the building types. This object is to be used when fetching information from the **database**.
+
+Attributes
+~~~~~~~~~~
+- id (int): The unique identifier of the building.
+- name (str): The name of the building.
+- addressLine1 (str): The first line of the building's address.
+- addressLine2 (str): The second line of the building's address.
+- postcode (str): The postcode of the building.
+- type (str): The type of the building.
+- favourited (bool): Indicates whether the building is favorited or not.
+- longitude (float): The longitude of the building's position on Google Maps.
+- latitude (float): The latitude of the building's position on Google Maps.
+
+Constructors
+~~~~~~~~~~~~
+Building({
+    required int id,
+    required String name,
+    required String addressLine1,
+    required String addressLine2,
+    required String postcode,
+    required String type,
+    required bool favourited,
+    required double latitude,
+    required double longitude,
+})
+    Constructs a Building instance with the specified attributes.
+
+Methods
+~~~~~~~
+getPosition() -> LatLng
+    Returns the position of this building as a LatLng object.
+    :return: The position of the building.
+    :rtype: LatLng
+
+getName() -> str
+    Returns the name of the building in **Lower Case**.
+    :return: The name of the building in lower case.
+    :rtype: str
+
+
+
+
+Day
+===
+
+Classes
+-------
+
+Day
+---
+Holds information about the sessions that are occurring this day.
+
+Attributes
+~~~~~~~~~~
+- date (DateTime): The date of the day.
+- weekDay (str): The name of the day of the week.
+- sessions (List[Session]): A list of sessions occurring on this day.
+
+Constructors
+~~~~~~~~~~~~
+Day(DateTime date, List[Session] sessions)
+    Constructs a Day instance with the specified date and list of sessions.
+
+Methods
+~~~~~~~
+_getWeekDay() -> str
+    Fetches the name of the day of the week.
+    :return: The name of the day of the week.
+    :rtype: str
+
+getSchedule() -> List[str]
+    Returns a list of session strings.
+    :return: A list of session strings.
+    :rtype: List[str]
+
+
+
+
+Session
+=======
+
+Classes
+-------
+
+Session
+-------
+A slot in the timetable.
+
+Attributes
+~~~~~~~~~~
+- name (str): The formal name of the session.
+- start (DateTime): The start time of the session.
+- end (DateTime): The end time of the session.
+- building (str): The name of the building where the session will take place.
+- room (str): The room where the session will take place.
+
+Constructors
+~~~~~~~~~~~~
+Session(String name, DateTime start, DateTime end, String building, String room)
+    Constructs a Session instance with the specified attributes.
+    :param str name: The formal name of the session.
+    :param DateTime start: The start time of the session.
+    :param DateTime end: The end time of the session.
+    :param str building: The name of the building where the session will take place.
+    :param str room: The room where the session will take place.
+    :raises Exception: If the start time is later than the end time on the same day.
+
+Methods
+~~~~~~~
+getSessionString() -> str
+    Returns a string containing all the information needed about the session.
+    :return: A string containing session information.
+    :rtype: str
+
+_getStringTime(int timeIn) -> str
+    Returns a string representation of the given time in 12-hour format.
+    :param int timeIn: The time to convert.
+    :return: A string representation of the time in 12-hour format.
+    :rtype: str
+    :raises Exception: If the provided time is invalid.
+
+
+
+
+Authenticator
+=============
+
+Functions
+---------
+
+getClientId()
+------------
+Returns the OAuth 2.0 Client ID to be used for Google authentication.
+:return: The OAuth 2.0 Client ID.
+:rtype: str
+
+getScopes()
+------------
+Returns the access scopes to be used for Google authentication.
+:return: The access scopes.
+:rtype: List[str]
+
+
+
+
+Ui authentication
+=================
+
+Classes
+-------
+
+GoogleSignInButton
+------------------
+Creates a simple button to allow the user to sign in with Google. If the user is signed in, the button instead displays text stating the user's email address.
+
+Attributes
+~~~~~~~~~~
+- _currentUser (GoogleSignInAccount?): The current signed-in user.
+- _googleSignIn (GoogleSignIn): An instance of GoogleSignIn for handling sign-in.
+- _clientId (str): The OAuth 2.0 Client ID for Google authentication.
+- _scopes (List[str]): The access scopes for Google authentication.
+
+Constructors
+~~~~~~~~~~~~
+GoogleSignInButton()
+    Constructs a GoogleSignInButton instance.
+
+Methods
+~~~~~~~
+initState()
+    Initializes the state of the GoogleSignInButton widget.
+
+build(context) -> Widget
+    Builds the GoogleSignInButton widget.
+    :param BuildContext context: The build context.
+    :return: The built widget.
+    :rtype: Widget
+
+trySignIn() -> Future[GoogleSignInAccount?]
+    Opens the Google sign-in widget and attempts to authenticate the user.
+    :return: The signed-in user, if successful; otherwise, null.
+    :rtype: Future[GoogleSignInAccount?]
+
+
+
+
+
+Map Drawer
+==========
+
+Classes
+-------
+
+MapDrawer
+---------
+A drawer widget for displaying navigation options.
+
+Constructors
+~~~~~~~~~~~~
+MapDrawer()
+    Constructs a MapDrawer instance.
+
+Methods
+~~~~~~~
+build(context) -> Widget
+    Builds the MapDrawer widget.
+    :param BuildContext context: The build context.
+    :return: The built widget.
+    :rtype: Widget
+
+
+
+
+Validator
+=========
+
+Classes
+-------
+
+Validator
+---------
+Provides methods for validating input strings.
+
+Methods
+~~~~~~~
+validateStringInput(String? input) -> bool
+    Validates a string input using a regular expression.
+    - The string can only be made up of **Letters**.
+    - **Cannot** contain numbers or symbols.
+    :param str? input: The input string to validate.
+    :return: True if the input is valid, False otherwise.
+    :rtype: bool
+
+
+
+
+Main
 ====
-classes
+
+Classes
 -------
-myApp
+
+MyApp
 -----
-MyApp({Key? key})
-const
+The main application widget.
 
-properties
-----------
-hashCode -> int
-(no setter) (inherited)
-The hash code for this object.
+Constructors
+~~~~~~~~~~~~
+MyApp()
+    Constructs a MyApp instance.
 
-key -> Key?
-(final) (inherited)
-Controls how one widget replaces another widget in the tree.
-
-runtimeType -> Type
-(no setter) (inherited)
-A representation of the runtime type of the object
-
-methods
--------
-
-
-
+Methods
+~~~~~~~
+build(context) -> Widget
+    Builds the main application widget.
+    :param BuildContext context: The build context.
+    :return: The built widget.
+    :rtype: Widget
 
 
 MyHomePage
+===========
+
+Classes
+-------
+
+MyHomePage
 ----------
+The home page widget.
 
-functions
+Constructors
+~~~~~~~~~~~~
+MyHomePage(String title)
+    Constructs a MyHomePage instance with the specified title.
+
+Methods
+~~~~~~~
+build(context) -> Widget
+    Builds the home page widget.
+    :param BuildContext context: The build context.
+    :return: The built widget.
+    :rtype: Widget
+
+
+MapView 
+=======
+
+Classes
+-------
+
+MapView
+-------
+A widget for displaying the map view.
+
+Constructors
+~~~~~~~~~~~~
+MapView()
+    Constructs a MapView instance.
+
+Methods
+~~~~~~~
+build(context) -> Widget
+    Builds the map view widget.
+    :param BuildContext context: The build context.
+    :return: The built widget.
+    :rtype: Widget
+
+
+
+
+util
+====
+
+Functions
 ---------
-main() -> void
 
+isTesting() -> bool
+-------------------
+Returns true if the application is currently being tested or is in testing mode (e.g., during `flutter test` runs).
+:return: True if the application is in testing mode, False otherwise.
+:rtype: bool
+
+
+
+
+
+
+TESTING
+=======
+
+
+
+Database Test
+=============
+
+Functions
+---------
+
+main()
+------
+The main function for executing database-related tests. We tested richmond building
+
+Test Groups
+-----------
+
+Database fields |
+~~~~~~~~~~~~~~~~
+A group of tests for validating database fields.
+
+Database Methods |
+~~~~~~~~~~~~~~~~~
+A group of tests for validating database methods.
+
+
+
+
+Building Fields Test
+====================
+
+Test Groups
+-----------
+
+Building, field tests |
+~~~~~~~~~~~~~~~~~~~~~~
+A group of tests for validating the initialization of fields in the Building class.
+
+Tests
+-----
+
+Id initializes to '1'
+~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'id' attribute initializes to '1'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'id' attribute is '1'.
+
+Name initializes to 'Richmon
+
+
+
+
+Building Manager Test
+=====================
+
+Test Groups
+-----------
+
+Building, field tests |
+~~~~~~~~~~~~~~~~~~~~~~
+A group of tests for validating the initialization of fields in the Building class.
+
+Tests
+-----
+
+Id initializes to '1'
+~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'id' attribute initializes to '1'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'id' attribute is '1'.
+
+Name initializes to 'Richmond'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'name' attribute initializes to 'Richmond'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'name' attribute is 'Richmond'.
+
+Address Line 1 initializes to 'Portland St'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'addressLine1' attribute initializes to 'Portland St'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'addressLine1' attribute is 'Portland St'.
+
+Address Line 2 initializes to 'Portsmouth'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'addressLine2' attribute initializes to 'Portsmouth'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'addressLine2' attribute is 'Portsmouth'.
+
+Postcode initializes to 'PO1 3DE'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'postcode' attribute initializes to 'PO1 3DE'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'postcode' attribute is 'PO1 3DE'.
+
+Type initializes to 'uni'
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'type' attribute initializes to 'uni'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'type' attribute is 'uni'.
+
+Favourited initializes to 'false'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'favourited' attribute initializes to 'false'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'favourited' attribute is 'false'.
+
+Longitude initializes to '50.7981'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'longitude' attribute initializes to '50.7981'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'longitude' attribute is '50.7981'.
+
+Latitude initializes to '1.0995'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'latitude' attribute initializes to '1.0995'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object.
+- Assert: Verify that the 'latitude' attribute is '1.0995'.
+
+
+
+
+Building Methods Test
+=====================
+
+Test Groups
+-----------
+
+Building, method tests |
+~~~~~~~~~~~~~~~~~~~~~~~
+A group of tests for validating the methods in the Building class.
+
+Tests
+-----
+
+Return Position returns of type 'LatLng'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the getPosition method returns an object of type 'LatLng'.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object and call the getPosition method.
+- Assert: Verify that the returned object is of type 'LatLng'.
+
+Return Position returns value 'LatLng(50.7981, 1.0995)'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the getPosition method returns the expected 'LatLng' object with the given latitude and longitude values.
+- Arrange: Set up the attributes for building instantiation.
+- Act: Instantiate a Building object and call the getPosition method.
+- Assert: Verify that the returned 'LatLng' object matches the expected values.
+
+
+
+
+Day Test
+========
+
+Test Groups
+-----------
+
+Day, Field Tests |
+~~~~~~~~~~~~~~~~~
+A group of tests for validating the initialization of fields in the Day class.
+
+Tests
+-----
+
+Date initializes to '12th February, 2012'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'date' attribute initializes to '12th February, 2012'.
+- Arrange: Set up the date for Day instantiation.
+- Act: Instantiate a Day object.
+- Assert: Verify that the 'date' attribute is '12th February, 2012'.
+
+Weekday initializes to 'Sunday'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'weekDay' attribute initializes to 'Sunday'.
+- Arrange: Set up the date for Day instantiation.
+- Act: Instantiate a Day object.
+- Assert: Verify that the 'weekDay' attribute is 'Sunday'.
+
+Sessions initializes to ['Programming, 12am - 1pm, Liongate (0.14)']
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'sessions' attribute initializes correctly.
+- Arrange: Set up the date and sessions for Day instantiation.
+- Act: Instantiate a Day object.
+- Assert: Verify that the 'sessions' attribute contains the expected sessions.
+
+Day, Method Tests |
+~~~~~~~~~~~~~~~~~~
+A group of tests for validating the methods in the Day class.
+
+Tests
+-----
+
+getSchedule returns '['Programming, 12am - 1pm, Liongate (0.14)', 'Networks, 2pm - 3pm, Portland (1.19)']'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the getSchedule method returns the expected schedule.
+- Arrange: Set up the date and sessions for Day instantiation.
+- Act: Instantiate a Day object.
+- Assert: Verify that the returned schedule matches the expected schedule.
+
+
+
+
+Session Test
+============
+
+Test Groups
+-----------
+
+Session, Field Tests |
+~~~~~~~~~~~~~~~~~~~~~
+A group of tests for validating the initialization of fields in the Session class.
+
+Tests
+-----
+
+Name is initialized to 'Programming'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'name' attribute initializes to 'Programming'.
+- Arrange: Set up the session attributes for Session instantiation.
+- Act: Instantiate a Session object.
+- Assert: Verify that the 'name' attribute is 'Programming'.
+
+Start is initialized to 12am
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'start' attribute initializes to 12am.
+- Arrange: Set up the session attributes for Session instantiation.
+- Act: Instantiate a Session object.
+- Assert: Verify that the hour of the 'start' attribute is 12.
+
+End is initialized to 1pm
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'end' attribute initializes to 1pm.
+- Arrange: Set up the session attributes for Session instantiation.
+- Act: Instantiate a Session object.
+- Assert: Verify that the hour of the 'end' attribute is 13.
+
+Building is initialized to 'Liongate'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'building' attribute initializes to 'Liongate'.
+- Arrange: Set up the session attributes for Session instantiation.
+- Act: Instantiate a Session object.
+- Assert: Verify that the 'building' attribute is 'Liongate'.
+
+Room is initialized to '0.14'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the 'room' attribute initializes to '0.14'.
+- Arrange: Set up the session attributes for Session instantiation.
+- Act: Instantiate a Session object.
+- Assert: Verify that the 'room' attribute is '0.14'.
+
+Session, Method Tests |
+~~~~~~~~~~~~~~~~~~~~~~
+A group of tests for validating the methods in the Session class.
+
+Tests
+-----
+
+getSessionString returns 'Programming, 12am - 1pm, Liongate (0.14)'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the getSessionString method returns the expected string.
+- Arrange: Set up the session attributes for Session instantiation.
+- Act: Instantiate a Session object and call getSessionString.
+- Assert: Verify that the returned string matches the expected format.
+
+
+
+
+Validator Test
+==============
+
+Test Groups
+-----------
+
+Validator Method Tests |
+~~~~~~~~~~~~~~~~~~~~~~~
+A group of tests for validating the `validateStringInput` method in the Validator class.
+
+Tests
+-----
+
+validateStringInput - "validInput"  return true
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the method returns true for a valid input string.
+- Assert: Verify that the method returns true for the input string "validInput".
+
+validateStringInput - "VeryLongInputThatMakesNoSenseAtAllAndIsOnlyHereToStressTheValidationMethodToSeeIfItWillBreakWhenUsingAnExceptionallyLongInput"  return true
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the method returns true for a very long input string.
+- Assert: Verify that the method returns true for an exceptionally long input string.
+
+Input with illegal character ; returns false
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the method returns false for an input string containing the illegal character ';'.
+- Assert: Verify that the method returns false for the input string "input with ; illegal characters".
+
+Input with illegal character = returns false
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the method returns false for an input string containing the illegal character '='.
+- Assert: Verify that the method returns false for the input string "input with = illegal characters".
+
+Input with illegal character ' returns false
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the method returns false for an input string containing the illegal character '.
+- Assert: Verify that the method returns false for the input string "input with ' illegal characters".
+
+Input with illegal character " returns false
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the method returns false for an input string containing the illegal character ".
+- Assert: Verify that the method returns false for the input string "input with " illegal characters".
+
+... (skipping additional tests for brevity) ...
+
+validateStringInput - Null input returns false
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests if the method returns false for a null input string.
+- Assert: Verify that the method returns false for a null input string.
