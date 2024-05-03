@@ -63,7 +63,7 @@ google oauth API
 Constants
 ---------
 
-clientId
+client Id
 ~~~~~~~
 The OAuth 2.0 Client ID given by Google Cloud.
 :type: str
@@ -115,8 +115,8 @@ Building Manager
 Classes
 -------
 
-BuildingManager
----------------
+Building Manager
+----------------
 This object allows the main application to interface with the rest of the objects in the 'Building Manager' subsystem.
 
 Constructors
@@ -275,13 +275,13 @@ Authenticator
 Functions
 ---------
 
-getClientId()
-------------
+Get Client Id
+-------------
 Returns the OAuth 2.0 Client ID to be used for Google authentication.
 :return: The OAuth 2.0 Client ID.
 :rtype: str
 
-getScopes()
+Get Scopes
 ------------
 Returns the access scopes to be used for Google authentication.
 :return: The access scopes.
@@ -296,8 +296,8 @@ Ui authentication
 Classes
 -------
 
-GoogleSignInButton
-------------------
+Google Sign-In Button
+---------------------
 Creates a simple button to allow the user to sign in with Google. If the user is signed in, the button instead displays text stating the user's email address.
 
 Attributes
@@ -338,8 +338,8 @@ Map Drawer
 Classes
 -------
 
-MapDrawer
----------
+Map Drawer
+----------
 A drawer widget for displaying navigation options.
 
 Constructors
@@ -387,8 +387,8 @@ Main
 Classes
 -------
 
-MyApp
------
+My App
+------
 The main application widget.
 
 Constructors
@@ -411,8 +411,8 @@ MyHomePage
 Classes
 -------
 
-MyHomePage
-----------
+My Home Page
+------------
 The home page widget.
 
 Constructors
@@ -435,8 +435,8 @@ MapView
 Classes
 -------
 
-MapView
--------
+Map View
+--------
 A widget for displaying the map view.
 
 Constructors
