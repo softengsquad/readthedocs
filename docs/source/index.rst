@@ -20,4 +20,5 @@ Contents
    usage
    api
    requirements
+   mainComponents
    librariesPart1
