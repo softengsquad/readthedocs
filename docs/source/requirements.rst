@@ -21,17 +21,17 @@ Requirements Page
 - Users can filter displayed buildings on the map.
 - Filtering options include: University, Social, Nightlife, and Food.
 
-5. View Routes from Current Location
+5. View Routes from Current Location (not yet implemented)
 -------------------------------------
 - Users can select and view routes to a building from their current GPS location.
 - It would be useful to know the user's current location.
 
-6. Switch Between Transport Modes
+6. Switch Between Transport Modes (not yet implemented)
 ----------------------------------
 - Users can switch between walking and bus as modes of transport.
 - Include university bus routes if available.
 
-7. Check Transport Availability
+7. Check Transport Availability (not yet implemented)
 -------------------------------
 - Users can see the availability of different modes of transport.
 - Information includes uni bus timetables and e-scooter availability, kept updated for first years.
@@ -46,7 +46,7 @@ Requirements Page
 - Implement compatibility with Google Calendar for ease of use.
 - Users can sync their calendar with the app.
 
-10. Estimate Travel Time
+10. Estimate Travel Time (not yet implemented)
 ------------------------
 - Users can see a rough estimate/range of times for travel from their current GPS location to their destination.
 
