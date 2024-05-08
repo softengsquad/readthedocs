@@ -6,29 +6,14 @@ Usage
 Installation
 ------------
 
-To use Lumache, first install it using pip:
+1. Install Android Studio
+2. Set up an Android emulator
+3. Install Dart & Flutter
+4. Check the output of 'flutter doctor' for the presence of Android Studio
 
-.. code-block:: console
-
-   (.venv) $ pip install lumache
-
-Creating recipes
+Running the project
 ----------------
 
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
-
-.. autofunction:: lumache.get_random_ingredients
-
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
-
-For example:
-
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
-
+1. Clone the repository
+1. Change into the directory
+1. Run 'flutter run -d emulator'
