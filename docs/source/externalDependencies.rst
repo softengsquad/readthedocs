@@ -1,10 +1,7 @@
 External Dependencies
 ==================
 
-1. Table 
-------------------------------------------------
-
-.. list-table:: External Dependencies
+.. list-table:: External Dependencies Table
    :widths: 25 25 50
    :header-rows: 1
 
@@ -24,3 +21,18 @@ External Dependencies
      - Provides dependency injection within widgets
    * - carousel_slider
      - Provides a scrollable image carousel for building floor plans
+
+.. list-table:: Title
+   :widths: 25 25 50
+   :header-rows: 1
+
+   * - Heading row 1, column 1
+     - Heading row 1, column 2
+     - Heading row 1, column 3
+   * - Row 1, column 1
+     -
+     - Row 1, column 3
+   * - Row 2, column 1
+     - Row 2, column 2
+     - Row 2, column 3
+
