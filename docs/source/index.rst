@@ -21,4 +21,5 @@ Contents
    api
    requirements
    mainComponents
+   externalDependencies
    librariesPart1
